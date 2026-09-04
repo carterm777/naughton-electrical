@@ -1,0 +1,275 @@
+/* ==========================================================================
+   tokens.css — Naughton Electrical
+   The ONLY file in this project allowed to contain a raw color value.
+   Everything else reads from these custom properties.
+
+   Direction (ART-DIRECTION §10): textured-organic dominant, warm-approachable
+   secondary. Warm parchment and moss-green bands, paper grain present and
+   deliberately VISIBLE, soft edges, one dark band before the footer.
+   ========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------- */
+  /* 1. Brand seeds — fixed by the brief, never used directly in CSS   */
+  /* ---------------------------------------------------------------- */
+  --seed-primary: #1e2019; /* warm charcoal-ink   */
+  --seed-secondary: #4a5a52; /* slate-sage moss     */
+  --seed-accent: #b6621b; /* burnt copper        */
+  --seed-dark: #14150f; /* bark                */
+  --seed-light: #f5efe4; /* parchment           */
+
+  /* ---------------------------------------------------------------- */
+  /* 2. Surfaces — the page's light/moss/dark rhythm                   */
+  /* ---------------------------------------------------------------- */
+  --paper: #f5efe4; /* the page ground                     */
+  --paper-2: #efe7d7; /* one step warmer/deeper, band relief */
+  --paper-3: #e6dbc4; /* deepest parchment, mats + edges     */
+  --paper-raised: #fcf8f0; /* lifted paper: widget, cards         */
+  --paper-sunk: #eae1cd; /* recessed wells: drop zone, inputs   */
+
+  --moss: #3d4b44; /* deep moss band                      */
+  --moss-deep: #313d37; /* moss band, darker foot              */
+  --moss-wash: #e5e7dd; /* light moss wash, coverage section   */
+  --moss-tint: #d7dbcd; /* hairlines + mats on the wash        */
+
+  --bark: #14150f; /* the one dark band + footer          */
+  --bark-2: #1e2019; /* raised surfaces on bark             */
+  --bark-3: #272921; /* hairlines on bark                   */
+
+  /* ---------------------------------------------------------------- */
+  /* 3. Ink — text on each ground                                      */
+  /* ---------------------------------------------------------------- */
+  --ink: #1e2019; /* 14.4:1 on paper                     */
+  --ink-muted: #4a5a52; /*  6.4:1 on paper                     */
+  --ink-faint: #5c6159; /*  5.6:1 on paper, 4.9:1 on the sunk well  */
+  --ink-invert: #f5efe4; /* on moss / bark                      */
+  --ink-invert-muted: #c6c9bd; /*  ~9:1 on moss, ~11:1 on bark        */
+  --ink-invert-faint: #9a9c90; /*  6.6:1 on bark — captions only      */
+
+  /* ---------------------------------------------------------------- */
+  /* 4. Copper — the trade signal                                      */
+  /* ---------------------------------------------------------------- */
+  --copper: #b6621b; /* display type, rules, icons (3.9:1)  */
+  --copper-ink: #8a4a12; /* small copper TEXT on paper (6.0:1)  */
+  --copper-light: #d98a3d; /* copper on bark/moss (6.7:1 on bark) */
+  --copper-deep: #7a400f; /* pressed states                      */
+  --copper-wash: rgba(182, 98, 27, 0.09);
+  --copper-wash-strong: rgba(182, 98, 27, 0.16);
+
+  /* ---------------------------------------------------------------- */
+  /* 5. Hairlines + edges                                              */
+  /* ---------------------------------------------------------------- */
+  --hairline: rgba(30, 32, 25, 0.16);
+  --hairline-soft: rgba(30, 32, 25, 0.09);
+  --hairline-copper: rgba(182, 98, 27, 0.42);
+  --hairline-copper-light: rgba(217, 138, 61, 0.5);
+  --hairline-invert: rgba(245, 239, 228, 0.2);
+  --hairline-invert-soft: rgba(245, 239, 228, 0.11);
+
+  /* ---------------------------------------------------------------- */
+  /* 6. Type                                                           */
+  /* ---------------------------------------------------------------- */
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'IBM Plex Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  /* Fraunces axis presets — the cheap way to look expensive.
+     opsz follows the rendered size; SOFT warms the terminals; WONK on. */
+  --wonk-display: 'opsz' 120, 'SOFT' 58, 'WONK' 1;
+  --wonk-head: 'opsz' 72, 'SOFT' 44, 'WONK' 1;
+  --wonk-sub: 'opsz' 32, 'SOFT' 30, 'WONK' 0;
+  --wonk-small: 'opsz' 14, 'SOFT' 20, 'WONK' 0;
+
+  /* Fluid scale — tuned so the H1 lands on 3 lines at both breakpoints
+     and the mobile hero still clears the zero-scroll fold. */
+  --fs-display: clamp(1.82rem, 0.98rem + 3.45vw, 3.4rem);
+  --fs-h2: clamp(1.62rem, 1.16rem + 1.9vw, 2.55rem);
+  --fs-h2-sm: clamp(1.35rem, 1.1rem + 1.05vw, 1.85rem);
+  --fs-h3: clamp(1.08rem, 1rem + 0.36vw, 1.28rem);
+  --fs-lead: clamp(1rem, 0.94rem + 0.3vw, 1.2rem);
+  --fs-body: clamp(0.95rem, 0.92rem + 0.16vw, 1.045rem);
+  --fs-sm: 0.885rem;
+  --fs-xs: 0.79rem;
+  --fs-micro: 0.688rem;
+
+  --lh-display: 1.04;
+  --lh-head: 1.1;
+  --lh-lead: 1.5;
+  --lh-body: 1.66;
+  --lh-tight: 1.28;
+
+  --tr-display: -0.022em;
+  --tr-head: -0.014em;
+  --tr-body: 0em;
+  --tr-eyebrow: 0.17em;
+  --tr-caps: 0.07em;
+
+  --wt-body: 400;
+  --wt-med: 500;
+  --wt-semi: 600;
+  --wt-display: 500;
+  --wt-display-bold: 650;
+
+  --measure: 66ch;
+  --measure-tight: 46ch;
+
+  /* ---------------------------------------------------------------- */
+  /* 7. Space + rhythm                                                 */
+  /* ---------------------------------------------------------------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.375rem;
+  --sp-6: 1.75rem;
+  --sp-7: 2.25rem;
+  --sp-8: 3rem;
+  --sp-9: 3.75rem;
+  --sp-10: 5rem;
+
+  --section-y: clamp(3.25rem, 1.6rem + 5.4vw, 6.5rem);
+  --section-y-tight: clamp(2.25rem, 1.4rem + 2.8vw, 3.75rem);
+  --shell: 76rem;
+  --shell-wide: 82.5rem;
+  --shell-narrow: 58rem;
+  --gutter: clamp(1.15rem, 0.6rem + 2.4vw, 2.75rem);
+
+  /* ---------------------------------------------------------------- */
+  /* 8. Radius — soft edges, never pill-shaped cards                   */
+  /* ---------------------------------------------------------------- */
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 7px;
+  --r-lg: 12px;
+  --r-xl: 18px;
+  --r-pill: 999px;
+
+  /* ---------------------------------------------------------------- */
+  /* 9. Shadow — warm-tinted, never neutral grey                       */
+  /* ---------------------------------------------------------------- */
+  --sh-sm: 0 1px 2px rgba(30, 32, 25, 0.06), 0 2px 6px rgba(30, 32, 25, 0.05);
+  --sh-md: 0 2px 4px rgba(30, 32, 25, 0.05), 0 10px 24px -8px rgba(30, 32, 25, 0.13);
+  --sh-lg: 0 4px 8px rgba(30, 32, 25, 0.05), 0 24px 48px -16px rgba(30, 32, 25, 0.2);
+  --sh-paper: 0 1px 1px rgba(30, 32, 25, 0.07), 0 14px 34px -14px rgba(30, 32, 25, 0.26),
+    0 44px 70px -50px rgba(30, 32, 25, 0.4);
+  --sh-inset: inset 0 1px 3px rgba(30, 32, 25, 0.09);
+  --drop-paper-far: drop-shadow(0 18px 34px rgba(30, 32, 25, 0.22));
+  --drop-paper-near: drop-shadow(0 2px 3px rgba(30, 32, 25, 0.1));
+
+  /* ---------------------------------------------------------------- */
+  /* 10. Texture — the page's declared aesthetic risk                  */
+  /*     Grain is meant to be SEEN, not guessed at. Kept tonal so it   */
+  /*     never fights the copy.                                        */
+  /* ---------------------------------------------------------------- */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E");
+  --fibre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.014 0.42' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)'/%3E%3C/svg%3E");
+  /* Same noise, pre-attenuated. Sections paint grain through a ::before at
+     --grain-opacity; small surfaces paint it with background-blend-mode, which
+     has no opacity control — full-strength multiply turns warm parchment grey.
+     This variant carries the attenuation in its own alpha instead. */
+  --grain-mul: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='0.34'/%3E%3C/svg%3E");
+  --grain-size: 180px 180px;
+  --grain-opacity: 0.3;
+  --grain-blend: multiply;
+
+  /* Wash + overlay stops. Every gradient on the page composes from these
+     rather than inlining an rgba() in a section stylesheet. */
+  --paper-a0: rgba(245, 239, 228, 0);
+  --paper-a86: rgba(245, 239, 228, 0.86);
+  --wash-a0: rgba(229, 231, 221, 0);
+  --wash-a90: rgba(229, 231, 221, 0.9);
+  --moss-a24: rgba(61, 75, 68, 0.24);
+  --moss-a30: rgba(61, 75, 68, 0.3);
+  --bark-a0: rgba(20, 21, 15, 0);
+  --bark-a22: rgba(20, 21, 15, 0.22);
+  --copper-a10: rgba(182, 98, 27, 0.1);
+  --copper-a12: rgba(182, 98, 27, 0.12);
+  --glow-copper: rgba(217, 138, 61, 0.2);
+  --glow-copper-0: rgba(217, 138, 61, 0);
+  --mask-on: #000;
+  --mask-mid: rgba(0, 0, 0, 0.65);
+  --mask-off: rgba(0, 0, 0, 0);
+
+  /* ---------------------------------------------------------------- */
+  /* 11. Motion + focus                                                */
+  /* ---------------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --t-fast: 180ms;
+  --t-mid: 280ms;
+  --t-slow: 520ms;
+
+  --focus-ring: #8a4a12;
+
+  --header-h: 148px;
+  --header-h-scrolled: 62px;
+
+  color-scheme: light;
+}
+
+/* Ground recipes. Each is a single class that sets background, ink and the
+   grain treatment together — so a section can never end up with a ground but
+   no matching text color. */
+.ground-paper {
+  --grain-opacity: 0.34;
+  --grain-blend: multiply;
+  background-color: var(--paper);
+  color: var(--ink);
+}
+
+.ground-paper2 {
+  --grain-opacity: 0.36;
+  --grain-blend: multiply;
+  background-color: var(--paper-2);
+  color: var(--ink);
+}
+
+.ground-wash {
+  --grain-opacity: 0.32;
+  --grain-blend: multiply;
+  background-color: var(--moss-wash);
+  color: var(--ink);
+}
+
+.ground-moss {
+  --grain-opacity: 0.4;
+  --grain-blend: overlay;
+  --hairline: var(--hairline-invert);
+  --hairline-soft: var(--hairline-invert-soft);
+  --ink: var(--ink-invert);
+  --ink-muted: var(--ink-invert-muted);
+  --copper: var(--copper-light);
+  --copper-ink: var(--copper-light);
+  --focus-ring: #e5b482;
+  background-color: var(--moss);
+  color: var(--ink-invert);
+}
+
+/* Reset back to the light-ground ink set. Needed wherever a parchment panel
+   sits INSIDE a moss or bark section — without it the panel inherits the
+   inverted ink and the type disappears. Applied to the element itself, so it
+   always beats the inherited ground values. */
+.on-paper {
+  --ink: #1e2019;
+  --ink-muted: #4a5a52;
+  --ink-faint: #5c6159;
+  --copper: #b6621b;
+  --copper-ink: #8a4a12;
+  --hairline: rgba(30, 32, 25, 0.16);
+  --hairline-soft: rgba(30, 32, 25, 0.09);
+  --focus-ring: #8a4a12;
+  color: var(--ink);
+}
+
+.ground-bark {
+  --grain-opacity: 0.42;
+  --grain-blend: overlay;
+  --hairline: var(--hairline-invert);
+  --hairline-soft: var(--hairline-invert-soft);
+  --ink: var(--ink-invert);
+  --ink-muted: var(--ink-invert-muted);
+  --copper: var(--copper-light);
+  --copper-ink: var(--copper-light);
+  --focus-ring: #e5b482;
+  background-color: var(--bark);
+  color: var(--ink-invert);
+}

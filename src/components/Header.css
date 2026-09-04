@@ -1,0 +1,387 @@
+/* Navigation — Standard Horizontal Nav Bar + Textured Hairline Nav Divider */
+
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background-color: var(--paper);
+}
+
+.hdr__bar {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--moss-deep);
+  color: var(--ink-invert-muted);
+  --grain-opacity: 0.34;
+  --grain-blend: overlay;
+  transition:
+    max-height var(--t-mid) var(--ease-out),
+    opacity var(--t-mid) var(--ease-out);
+  max-height: 46px;
+  overflow: hidden;
+}
+
+.hdr__bar-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding-block: 0.55rem;
+  font-size: var(--fs-micro);
+  letter-spacing: 0.045em;
+}
+
+.hdr__bar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  color: var(--ink-invert-muted);
+  white-space: nowrap;
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+.hdr__bar-item:hover {
+  color: var(--copper-light);
+}
+
+.hdr__bar-item--muted {
+  margin-left: auto;
+  color: var(--ink-invert-faint);
+}
+
+.hdr__bar-sep {
+  width: 1px;
+  height: 11px;
+  background-color: var(--hairline-invert);
+}
+
+.hdr__bar-addr-short {
+  display: none;
+}
+
+.hdr__main {
+  position: relative;
+  background-color: var(--paper);
+}
+
+.hdr__main-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--sp-4);
+  padding-block: 0.8rem;
+  transition: padding-block var(--t-mid) var(--ease-out);
+}
+
+.hdr__rule {
+  height: 2px;
+  background-image: linear-gradient(90deg, transparent, var(--hairline-copper) 12%, var(--hairline) 45%, var(--hairline-copper) 88%, transparent),
+    var(--grain);
+  background-size: 100% 1px, 90px 90px;
+  background-repeat: no-repeat, repeat;
+  background-position: 0 100%, 0 0;
+  opacity: 0.85;
+}
+
+/* --- wordmark ---------------------------------------------------- */
+
+.hdr__mark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  justify-self: start;
+}
+
+.hdr__mark-name {
+  font-family: var(--font-display);
+  font-variation-settings: var(--wonk-sub);
+  font-weight: var(--wt-display-bold);
+  font-size: clamp(1.18rem, 1rem + 0.6vw, 1.42rem);
+  letter-spacing: -0.018em;
+  color: var(--ink);
+}
+
+.hdr__mark-sub {
+  font-size: var(--fs-micro);
+  font-weight: var(--wt-semi);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--copper-ink);
+  margin-top: 0.28em;
+}
+
+/* --- centred nav -------------------------------------------------- */
+
+.nav {
+  justify-self: center;
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.55rem, 0.1rem + 1.1vw, 1.4rem);
+}
+
+.nav__item {
+  position: relative;
+}
+
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0.55rem 0.15rem;
+  font-size: var(--fs-xs);
+  font-weight: var(--wt-med);
+  letter-spacing: 0.045em;
+  color: var(--ink);
+  white-space: nowrap;
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+/* Underline Sweep — draws in from the left rather than toggling on. */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0.15rem;
+  right: 0.15rem;
+  bottom: 0.28rem;
+  height: 1px;
+  background-color: var(--copper);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms var(--ease-quart);
+}
+
+.nav__link:hover {
+  color: var(--copper-ink);
+}
+
+.nav__link:hover::after,
+.nav__link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.nav__chev {
+  transition: transform var(--t-fast) var(--ease-out);
+  opacity: 0.6;
+}
+
+.nav__trigger[aria-expanded='true'] .nav__chev {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* --- dropdown ----------------------------------------------------- */
+
+.nav__menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 5;
+  padding-top: 0.7rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -6px);
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 220ms var(--ease-out),
+    visibility 0s linear 220ms;
+}
+
+.nav__menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+  transition-delay: 0s, 0s, 0s;
+}
+
+.nav__menu-inner {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--paper-raised);
+  border: 1px solid var(--hairline-soft);
+  border-top: 2px solid var(--copper);
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  box-shadow: var(--sh-lg);
+  padding: var(--sp-4);
+  max-height: min(64vh, 30rem);
+  overflow-y: auto;
+}
+
+.nav__menu-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(11rem, 1fr));
+  gap: 0.1rem 1.5rem;
+  min-width: 26rem;
+}
+
+.nav__menu-link {
+  display: block;
+  padding: 0.42rem 0.55rem;
+  border-radius: var(--r-sm);
+  font-size: var(--fs-xs);
+  line-height: 1.35;
+  color: var(--ink-muted);
+  transition:
+    background-color var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out),
+    padding-left var(--t-fast) var(--ease-out);
+}
+
+.nav__menu-link:hover,
+.nav__menu-link:focus-visible {
+  background-color: var(--copper-wash);
+  color: var(--ink);
+  padding-left: 0.8rem;
+}
+
+/* --- call button --------------------------------------------------- */
+
+.hdr__actions {
+  justify-self: end;
+}
+
+.hdr__call {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.65rem 1.05rem;
+  border-radius: var(--r-md);
+  border: 1px solid var(--copper-deep);
+  background-color: var(--copper-ink);
+  color: var(--paper);
+  font-size: var(--fs-xs);
+  font-weight: var(--wt-semi);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  box-shadow: var(--sh-sm);
+  transition:
+    transform var(--t-mid) var(--ease-out),
+    background-color var(--t-fast) var(--ease-out),
+    box-shadow var(--t-mid) var(--ease-out);
+}
+
+.hdr__call:hover {
+  transform: translateY(-2px);
+  background-color: var(--copper);
+  box-shadow: var(--sh-md);
+}
+
+.hdr__call-label-short {
+  display: none;
+}
+
+/* --- mobile strip -------------------------------------------------- */
+
+.mnav {
+  display: none;
+}
+
+@media (max-width: 1080px) {
+  .nav__menu-list {
+    min-width: 22rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .hdr__bar-item--wide,
+  .hdr__bar-sep--wide {
+    display: none;
+  }
+
+  .hdr__bar-addr-full {
+    display: none;
+  }
+
+  .hdr__bar-addr-short {
+    display: inline;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .hdr__main-inner {
+    grid-template-columns: 1fr auto;
+    padding-block: 0.62rem;
+  }
+
+  .hdr__call-label {
+    display: none;
+  }
+
+  .hdr__call-label-short {
+    display: inline;
+  }
+
+  .hdr__call {
+    padding: 0.6rem 1rem;
+  }
+
+  /* No hamburger — the nav becomes a horizontal strip with a real fade
+     affordance so a clipped last item reads as scrollable, not broken. */
+  .mnav {
+    display: block;
+    position: relative;
+    background-color: var(--paper);
+    max-height: 44px;
+    opacity: 1;
+    transition:
+      max-height var(--t-mid) var(--ease-out),
+      opacity var(--t-mid) var(--ease-out);
+  }
+
+  .mnav__list {
+    display: flex;
+    gap: 1.02rem;
+    padding: 0.6rem var(--gutter) 0.7rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mnav__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mnav__link {
+    font-size: 0.75rem;
+    font-weight: var(--wt-med);
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  .mnav__fade {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 2.75rem;
+    pointer-events: none;
+    background: linear-gradient(90deg, var(--paper-a0), var(--paper) 72%);
+  }
+
+  /* Scrolled: the header reduces to wordmark + click-to-call, per the brief. */
+  .hdr.is-scrolled .hdr__bar {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  .hdr.is-scrolled .mnav {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 420px) {
+  .hdr__bar-inner {
+    padding-block: 0.42rem;
+  }
+
+  .mnav__list {
+    gap: 1.05rem;
+  }
+}

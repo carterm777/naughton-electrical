@@ -1,0 +1,309 @@
+/* ==========================================================================
+   app.css — page scaffolding and the patterns shared across sections.
+   Section-specific rules live in components/<Name>.css.
+
+   Specificity discipline: every selector here is a SINGLE class. Bare element
+   and attribute selectors are wrapped in :where() so they contribute nothing.
+   ========================================================================== */
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: var(--wt-body);
+  letter-spacing: var(--tr-body);
+}
+
+/* ---------------------------------------------------------------- */
+/* Shell + section rhythm                                            */
+/* ---------------------------------------------------------------- */
+
+.shell {
+  width: min(100% - (var(--gutter) * 2), var(--shell));
+  margin-inline: auto;
+}
+
+.shell-wide {
+  width: min(100% - (var(--gutter) * 2), var(--shell-wide));
+  margin-inline: auto;
+}
+
+.shell-narrow {
+  width: min(100% - (var(--gutter) * 2), var(--shell-narrow));
+  margin-inline: auto;
+}
+
+.section {
+  position: relative;
+  scroll-margin-top: clamp(4rem, 3rem + 2vw, 5.5rem);
+  isolation: isolate;
+  padding-block: var(--section-y);
+  overflow: clip;
+}
+
+.section-tight {
+  padding-block: var(--section-y-tight);
+}
+
+.layer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Paper grain. The page's declared aesthetic risk — run visibly, kept tonal. */
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--grain);
+  background-size: var(--grain-size);
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+}
+
+/* Long paper fibres, layered over the grain on the biggest surfaces. */
+.fibre::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--fibre);
+  background-size: 300px 300px;
+  opacity: 0.16;
+  mix-blend-mode: var(--grain-blend);
+}
+
+/* ---------------------------------------------------------------- */
+/* Type patterns                                                     */
+/* ---------------------------------------------------------------- */
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin: 0;
+  font-size: var(--fs-micro);
+  font-weight: var(--wt-semi);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--copper-ink);
+  line-height: 1.2;
+}
+
+.eyebrow::after {
+  content: '';
+  flex: 0 0 auto;
+  width: clamp(1.75rem, 4vw, 3.25rem);
+  height: 1px;
+  background: var(--hairline-copper);
+}
+
+.h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--wonk-head);
+  font-weight: var(--wt-display);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-head);
+  letter-spacing: var(--tr-head);
+  color: var(--ink);
+}
+
+.h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--wonk-sub);
+  font-weight: var(--wt-display-bold);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.008em;
+  color: var(--ink);
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  color: var(--ink-muted);
+  max-width: var(--measure);
+}
+
+.body {
+  color: var(--ink-muted);
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-8);
+}
+
+/* ---------------------------------------------------------------- */
+/* Buttons                                                           */
+/* ---------------------------------------------------------------- */
+
+.btn {
+  --btn-shift: 0px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  padding: 0.82em 1.35em;
+  border-radius: var(--r-md);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--wt-semi);
+  letter-spacing: 0.012em;
+  line-height: 1.15;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    transform var(--t-mid) var(--ease-out),
+    box-shadow var(--t-mid) var(--ease-out),
+    background-color var(--t-fast) var(--ease-out),
+    border-color var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out);
+  transform: translateY(var(--btn-shift));
+}
+
+.btn-primary {
+  background-color: var(--copper-ink);
+  color: var(--paper);
+  border: 1px solid var(--copper-deep);
+  box-shadow: var(--sh-sm);
+}
+
+.btn-primary:hover {
+  --btn-shift: -2px;
+  background-color: var(--copper);
+  box-shadow: var(--sh-md);
+}
+
+.btn-primary:active {
+  --btn-shift: 0px;
+  background-color: var(--copper-deep);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+}
+
+.btn-ghost:hover {
+  --btn-shift: -2px;
+  border-color: var(--copper);
+  color: var(--copper-ink);
+  background-color: var(--copper-wash);
+}
+
+.btn-outline-invert {
+  background-color: transparent;
+  color: var(--ink-invert);
+  border: 1px solid var(--hairline-invert);
+}
+
+.btn-outline-invert:hover {
+  --btn-shift: -2px;
+  border-color: var(--copper-light);
+  color: var(--copper-light);
+}
+
+.btn-lg {
+  padding: 0.95em 1.7em;
+  font-size: var(--fs-body);
+}
+
+.btn-icon {
+  flex: 0 0 auto;
+}
+
+/* ---------------------------------------------------------------- */
+/* Shared decorative pieces                                          */
+/* ---------------------------------------------------------------- */
+
+/* A hairline that is textured rather than a hard 1px border — the
+   Textured Hairline treatment used under the nav and between list rows. */
+.hairline-tex {
+  height: 2px;
+  border: 0;
+  background-image: linear-gradient(90deg, var(--hairline) 0 100%), var(--grain);
+  background-size: 100% 1px, 90px 90px;
+  background-position: 0 0, 0 0;
+  background-repeat: no-repeat, repeat;
+  opacity: 0.9;
+}
+
+/* Photo mat — a warm paper border around an image, used wherever a photo
+   should read as a print rather than a bleed. */
+.mat {
+  position: relative;
+  background-color: var(--paper-raised);
+  padding: var(--sp-2);
+  border: 1px solid var(--hairline-soft);
+  box-shadow: var(--sh-md);
+}
+
+.mat-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.figure-reset {
+  margin: 0;
+}
+
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--copper);
+}
+
+.placeholder-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-caps);
+  text-transform: uppercase;
+  font-weight: var(--wt-semi);
+  color: var(--ink-faint);
+}
+
+.placeholder-note::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid var(--ink-faint);
+}
+
+.skip-link {
+  background-color: var(--ink);
+  color: var(--paper);
+  font-size: var(--fs-sm);
+  font-weight: var(--wt-semi);
+  border-radius: 0 0 var(--r-md) 0;
+}
+
+/* Hidden SVG that carries the deckle filter used by the signature widget. */
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition-property: background-color, border-color, color, box-shadow;
+  }
+}

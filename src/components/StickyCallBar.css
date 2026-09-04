@@ -1,0 +1,76 @@
+/* Sticky mobile call bar — call-only, plus a text shortcut. */
+
+.callbar {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .callbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 70;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.55rem var(--gutter) calc(0.55rem + env(safe-area-inset-bottom, 0px));
+    background-color: var(--bark);
+    background-image: var(--grain-mul);
+    background-size: var(--grain-size);
+    background-blend-mode: overlay;
+    border-top: 1px solid var(--hairline-invert-soft);
+    transform: translateY(105%);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      transform 380ms var(--ease-quart),
+      opacity 280ms var(--ease-out),
+      visibility 0s linear 380ms;
+  }
+
+  .callbar.is-in {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s, 0s, 0s;
+  }
+
+  .callbar__call {
+    flex: 1 1 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    padding: 0.8rem 1rem;
+    border-radius: var(--r-md);
+    background-color: var(--copper-ink);
+    border: 1px solid var(--copper-deep);
+    color: var(--paper);
+    font-size: var(--fs-sm);
+    font-weight: var(--wt-semi);
+  }
+
+  .callbar__call:active {
+    background-color: var(--copper-deep);
+  }
+
+  .callbar__text {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    border-radius: var(--r-md);
+    border: 1px solid var(--hairline-invert);
+    color: var(--ink-invert);
+  }
+
+  .callbar__text:active {
+    background-color: var(--bark-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .callbar {
+    transition-property: opacity, visibility;
+  }
+}

@@ -1,0 +1,132 @@
+/* Trust badges — Certification Badge Wall / Textured Certificate-Style Panel.
+   Four parchment certificate panels on the page's deep moss band. All four
+   share one seal size, one stroke weight and one optical baseline so the row
+   reads as a single designed system. */
+
+.tb__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+  align-items: center;
+  text-align: center;
+}
+
+.tb__eyebrow {
+  color: var(--copper-light);
+}
+
+.tb__eyebrow::after {
+  background: var(--hairline-copper-light);
+}
+
+.tb__h2 {
+  font-size: var(--fs-h2-sm);
+  color: var(--paper);
+}
+
+.tb__wall {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.7rem, 0.2rem + 1.3vw, 1.35rem);
+}
+
+.tb__badge {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.55rem;
+  padding: clamp(1.1rem, 0.7rem + 1vw, 1.6rem) clamp(0.7rem, 0.4rem + 0.8vw, 1.1rem);
+  background-color: var(--paper);
+  background-image: var(--grain-mul);
+  background-size: var(--grain-size);
+  background-blend-mode: multiply;
+  border-radius: var(--r-sm);
+  /* Certificate double rule: a copper hairline held inside a paper margin. */
+  box-shadow:
+    inset 0 0 0 1px var(--hairline-copper),
+    inset 0 0 0 6px var(--paper),
+    inset 0 0 0 7px var(--hairline),
+    var(--sh-md);
+  transition:
+    transform var(--t-mid) var(--ease-out),
+    box-shadow var(--t-mid) var(--ease-out);
+}
+
+.tb__badge:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 0 0 1px var(--copper),
+    inset 0 0 0 6px var(--paper),
+    inset 0 0 0 7px var(--hairline),
+    var(--sh-lg);
+}
+
+.tb__seal {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--copper-wash);
+  box-shadow: inset 0 0 0 1px var(--hairline-copper);
+  color: var(--copper-ink);
+}
+
+.tb__label {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--wonk-small);
+  font-weight: var(--wt-display-bold);
+  font-size: var(--fs-sm);
+  line-height: 1.24;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.tb__note {
+  margin: 0;
+  font-size: var(--fs-micro);
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  color: var(--ink-faint);
+}
+
+@media (max-width: 860px) {
+  .tb__wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 460px) {
+  .tb__badge {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 0.75rem;
+    padding: 0.9rem 0.85rem;
+  }
+
+  .tb__seal {
+    flex: 0 0 auto;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .tb__wall {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tb__note {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tb__badge {
+    transition-property: box-shadow;
+  }
+}

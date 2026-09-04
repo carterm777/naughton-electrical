@@ -1,0 +1,127 @@
+/* Our Story — Split Story with Sticky Photo / Warm Archival Photo Treatment.
+   The copper rule beside the prose is scroll-linked (Progressive Reveal Scrub)
+   rather than a fire-once entrance, so it tracks the read. */
+
+.story__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(1.75rem, 0.4rem + 4.2vw, 4.75rem);
+  align-items: start;
+}
+
+.story__aside {
+  position: relative;
+}
+
+.story__frame {
+  position: sticky;
+  top: calc(var(--header-h-scrolled) + 2.5rem);
+}
+
+.story__figure {
+  position: relative;
+  padding: 10px 10px 0;
+  background-color: var(--paper-raised);
+  border: 1px solid var(--hairline-soft);
+  box-shadow: var(--sh-paper);
+  transform: rotate(-0.9deg);
+}
+
+.story__img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  /* Warm archival treatment — aged, not filtered-looking. */
+  filter: sepia(0.26) saturate(0.82) contrast(1.05) brightness(1.02);
+}
+
+.story__cap {
+  padding: 0.75rem 0.1rem 0.85rem;
+  font-size: var(--fs-micro);
+  font-weight: var(--wt-semi);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+.story__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.story__h2 {
+  max-width: 16ch;
+}
+
+.story__prose {
+  position: relative;
+  margin-top: var(--sp-4);
+  padding-left: clamp(1rem, 0.5rem + 1.4vw, 1.9rem);
+}
+
+.story__prose::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--hairline-soft);
+}
+
+.story__prose::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  width: 2px;
+  height: calc(var(--scrub, 0) * (100% - 0.35rem));
+  background-color: var(--copper);
+  transition: height 90ms linear;
+}
+
+.story__p {
+  margin: 0 0 var(--sp-5);
+  font-size: var(--fs-lead);
+  line-height: 1.72;
+  color: var(--ink-muted);
+  max-width: 62ch;
+}
+
+.story__p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .story__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-7);
+  }
+
+  .story__frame {
+    position: static;
+  }
+
+  .story__figure {
+    max-width: 26rem;
+  }
+
+  .story__aside {
+    order: 2;
+  }
+
+  .story__main {
+    order: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story__prose::after {
+    transition: none;
+  }
+}

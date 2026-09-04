@@ -1,0 +1,111 @@
+/* Final CTA — Full-Width CTA Banner / Textured Warm CTA Background,
+   run dark. The page's only cursor-reactive surface. */
+
+.cta {
+  position: relative;
+  isolation: isolate;
+  text-align: center;
+  --glow-x: 50%;
+  --glow-y: 40%;
+  --glow-on: 0;
+}
+
+.cta__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.cta__photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 58%;
+  opacity: 0.34;
+  filter: saturate(0.6) contrast(1.12) brightness(0.72);
+}
+
+.cta__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    26rem 26rem at var(--glow-x) var(--glow-y),
+    var(--glow-copper),
+    var(--glow-copper-0) 68%
+  );
+  opacity: var(--glow-on);
+  transition: opacity 300ms var(--ease-out);
+}
+
+.cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.cta__eyebrow {
+  justify-content: center;
+  color: var(--copper-light);
+}
+
+.cta__eyebrow::after {
+  background: var(--hairline-copper-light);
+}
+
+.cta__h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--wonk-display);
+  font-weight: var(--wt-display);
+  font-size: clamp(2.1rem, 1.2rem + 3.6vw, 4rem);
+  line-height: 1.03;
+  letter-spacing: -0.028em;
+  color: var(--paper);
+}
+
+.cta__sub {
+  margin: 0;
+  max-width: 46ch;
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--ink-invert-muted);
+}
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: var(--sp-2);
+}
+
+.cta__note {
+  margin: var(--sp-3) 0 0;
+  font-size: var(--fs-micro);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-invert-faint);
+  max-width: 44ch;
+  line-height: 1.7;
+}
+
+@media (max-width: 520px) {
+  .cta__actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .cta__actions .btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta__glow {
+    opacity: 0;
+  }
+}

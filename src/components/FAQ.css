@@ -1,0 +1,209 @@
+/* FAQ — Conversational FAQ Feed / Warm Illustrated Accordion.
+   A threaded rule runs the length of the feed with a copper node at each
+   question; answers sit in a soft, rounded paper panel indented off it. */
+
+.faq__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.68fr) minmax(0, 1.32fr);
+  gap: clamp(1.75rem, 0.4rem + 4vw, 4.5rem);
+  align-items: start;
+}
+
+.faq__aside {
+  position: sticky;
+  top: calc(var(--header-h-scrolled) + 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.faq__h2 {
+  max-width: 12ch;
+}
+
+.faq__aside-cta {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--hairline-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+.faq__aside-note {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.6;
+  color: var(--ink-faint);
+  max-width: 30ch;
+}
+
+/* --- feed ---------------------------------------------------------- */
+
+.faq__feed {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-left: clamp(1.15rem, 0.6rem + 1.6vw, 2rem);
+}
+
+.faq__feed::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0.9rem;
+  bottom: 1.2rem;
+  width: 1px;
+  background-image: linear-gradient(180deg, var(--hairline) 0 100%);
+}
+
+.faq__item {
+  position: relative;
+  padding-block: clamp(0.85rem, 0.5rem + 0.9vw, 1.15rem);
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.faq__item:last-child {
+  border-bottom: 0;
+}
+
+.faq__node {
+  position: absolute;
+  left: calc(clamp(1.15rem, 0.6rem + 1.6vw, 2rem) * -1);
+  top: clamp(1.35rem, 1rem + 0.9vw, 1.65rem);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--paper);
+  box-shadow: inset 0 0 0 1.5px var(--copper);
+  transition: background-color var(--t-fast) var(--ease-out);
+}
+
+.faq__item:hover .faq__node {
+  background-color: var(--copper);
+}
+
+.faq__q {
+  margin: 0;
+}
+
+.faq__trigger {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  font-family: var(--font-display);
+  font-variation-settings: var(--wonk-sub);
+  font-weight: var(--wt-display-bold);
+  font-size: var(--fs-h3);
+  line-height: 1.32;
+  letter-spacing: -0.008em;
+  color: var(--ink);
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+.faq__trigger:hover {
+  color: var(--copper-ink);
+}
+
+.faq__q-text {
+  min-width: 0;
+}
+
+.faq__sign {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  margin-top: 0.1rem;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  color: var(--ink-muted);
+  /* Icon Morph — one minus glyph that rotates a quarter turn into a plus.
+     A second pseudo-stroke supplies the crossing bar. */
+  position: relative;
+  transition:
+    transform 220ms var(--ease-out),
+    border-color var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out);
+}
+
+.faq__sign::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: currentColor;
+  transform: rotate(90deg) scaleX(0);
+  transition: transform 220ms var(--ease-out);
+}
+
+.faq__sign:not(.is-open)::after {
+  transform: rotate(90deg) scaleX(1);
+}
+
+.faq__trigger:hover .faq__sign {
+  border-color: var(--copper);
+  color: var(--copper-ink);
+}
+
+/* --- answer --------------------------------------------------------- */
+
+.faq__a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 340ms var(--ease-quart);
+}
+
+.faq__a.is-open {
+  grid-template-rows: 1fr;
+}
+
+.faq__a-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.faq__a-text {
+  margin: 0.7rem 0 0.15rem;
+  padding: 0.85rem 1rem;
+  background-color: var(--paper-2);
+  background-image: var(--grain-mul);
+  background-size: var(--grain-size);
+  background-blend-mode: multiply;
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r-lg) var(--r-lg) var(--r-lg) var(--r-sm);
+  font-size: var(--fs-sm);
+  line-height: 1.68;
+  color: var(--ink-muted);
+  max-width: 64ch;
+}
+
+@media (max-width: 900px) {
+  .faq__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-7);
+  }
+
+  .faq__aside {
+    position: static;
+  }
+
+  .faq__h2 {
+    max-width: 20ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq__a,
+  .faq__sign,
+  .faq__sign::after {
+    transition: none;
+  }
+}

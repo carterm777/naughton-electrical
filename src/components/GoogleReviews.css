@@ -1,0 +1,276 @@
+/* Google Reviews — Testimonial Card Grid / Photo and Card Testimonial Block.
+   No customer photography exists (and inventing a face is off-limits), so the
+   "photo + card" pairing is carried at BLOCK level: one environmental Alberta
+   photo anchors the aggregate card, which then sits in the grid as its first
+   cell rather than floating above it. */
+
+.rev__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-7);
+}
+
+.rev__h2 {
+  max-width: 22ch;
+}
+
+/* Three columns, three rows. The aggregate panel holds the whole first column
+   as one tall photographic block; four quotes fill the 2x2 beside it; the
+   fifth runs full width as a wider closing card. Every cell is filled, so no
+   quote card gets stretched into a half-empty box to match a taller neighbour
+   — the exact flatness the first pass produced. */
+.rev__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.85rem, 0.3rem + 1.4vw, 1.5rem);
+}
+
+
+/* --- aggregate cell --------------------------------------------------- */
+
+.rev__agg {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--moss);
+  color: var(--ink-invert);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: var(--sh-md);
+}
+
+.rev__agg-photo {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 11rem;
+  overflow: hidden;
+}
+
+.rev__agg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.72) contrast(1.04) brightness(0.92);
+  transition: transform 900ms var(--ease-quart);
+}
+
+.rev__agg:hover .rev__agg-img {
+  transform: scale(1.035);
+}
+
+.rev__agg-body {
+  padding: clamp(1rem, 0.6rem + 1vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1 1 auto;
+}
+
+.rev__agg-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-size: var(--fs-micro);
+  font-weight: var(--wt-semi);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-invert-muted);
+}
+
+.rev__agg-score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin: 0.15rem 0 0.1rem;
+}
+
+.rev__agg-num {
+  font-family: var(--font-display);
+  font-variation-settings: var(--wonk-head);
+  font-weight: var(--wt-display);
+  font-size: clamp(2.6rem, 1.6rem + 3vw, 3.9rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: var(--paper);
+}
+
+.rev__agg-of {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tr-caps);
+  text-transform: uppercase;
+  color: var(--ink-invert-muted);
+}
+
+.rev__agg-count {
+  margin: 0.25rem 0 0;
+  font-size: var(--fs-xs);
+  color: var(--ink-invert-muted);
+}
+
+/* --- quote cards ------------------------------------------------------- */
+
+.rev__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: clamp(1rem, 0.65rem + 0.9vw, 1.35rem);
+  background-color: var(--paper-raised);
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-sm);
+  transition:
+    transform var(--t-mid) var(--ease-out),
+    box-shadow var(--t-mid) var(--ease-out),
+    border-color var(--t-mid) var(--ease-out);
+}
+
+.rev__card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-md);
+  border-color: var(--hairline);
+}
+
+.rev__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rev__g {
+  color: var(--ink-faint);
+  opacity: 0.7;
+}
+
+.rev__quote {
+  margin: 0;
+  flex: 1 1 auto;
+}
+
+.rev__quote-text {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.62;
+  color: var(--ink);
+}
+
+.rev__quote-text::before {
+  content: '\201C';
+}
+
+.rev__quote-text::after {
+  content: '\201D';
+}
+
+.rev__by {
+  font-size: var(--fs-micro);
+  font-weight: var(--wt-semi);
+  letter-spacing: var(--tr-caps);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--hairline-soft);
+}
+
+/* The closing quote runs full width as a wider, larger-set card — the one
+   commercial review on the page, given the weight the commercial audience
+   needs. Declared AFTER .rev__card on purpose: both are single classes, so
+   source order is the only thing deciding which flex-direction survives. */
+.rev__wide {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(1rem, 0.4rem + 1.6vw, 2.25rem);
+  padding-block: clamp(1.1rem, 0.7rem + 1vw, 1.55rem);
+}
+
+.rev__wide .rev__card-top {
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.rev__wide .rev__quote-text {
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+}
+
+.rev__wide .rev__by {
+  flex: 0 0 auto;
+  padding: 0 0 0 clamp(1rem, 0.4rem + 1.6vw, 2.25rem);
+  border-top: 0;
+  border-left: 1px solid var(--hairline-soft);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+
+.rev__foot {
+  margin-top: var(--sp-6);
+}
+
+@media (max-width: 900px) {
+  .rev__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rev__agg {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .rev__agg-photo {
+    flex: 0 0 40%;
+    min-height: 9rem;
+  }
+
+  .rev__wide {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .rev__wide .rev__card-top {
+    flex-direction: row;
+  }
+
+  .rev__wide .rev__by {
+    padding-top: 0.7rem;
+    padding-left: 0;
+    border-top: 1px solid var(--hairline-soft);
+    border-left: 0;
+    align-self: auto;
+    display: block;
+  }
+}
+
+@media (max-width: 620px) {
+  .rev__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rev__agg {
+    flex-direction: column;
+  }
+
+  .rev__agg-photo {
+    flex: 0 0 auto;
+    min-height: 10rem;
+  }
+
+  .rev__agg-body {
+    padding: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev__agg-img,
+  .rev__card {
+    transition-property: box-shadow, border-color;
+  }
+}

@@ -1,0 +1,288 @@
+/* Hero — Split-Screen Hero / Organic Texture Overlay.
+   Type left, photo panel bleeding off the right edge, and the signature paper
+   widget bridging the split line. The horizontal rule at the top of the
+   content row is the shared alignment line: the eyebrow sits directly beneath
+   it and the widget's top edge meets it, per the brief's mandatory rule. */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  --grain-opacity: 0.36;
+  --grain-blend: multiply;
+  background-color: var(--paper);
+  padding-block: clamp(1rem, 0.4rem + 1.6vw, 2.6rem) clamp(2.25rem, 1rem + 3.2vw, 4rem);
+  overflow: clip;
+}
+
+/* --- photo panel ------------------------------------------------------ */
+
+.hero__photo {
+  display: none;
+}
+
+.hero__photo-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(97deg, var(--paper) 0%, var(--paper-a86) 12%, var(--paper-a0) 46%),
+    linear-gradient(0deg, var(--moss-a24), var(--copper-a12));
+  mix-blend-mode: multiply;
+}
+
+/* --- layout ------------------------------------------------------------ */
+
+.hero__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  /* Row gap kept short on purpose: the rule, the eyebrow and the widget's top
+     edge all have to read as one alignment line, and a large row gap pushes
+     them apart into three unrelated events. */
+  row-gap: clamp(0.9rem, 0.6rem + 0.7vw, 1.35rem);
+  column-gap: clamp(1.15rem, 0.6rem + 1.6vw, 2.25rem);
+}
+
+.hero__rule {
+  grid-column: 1 / -1;
+  height: 1px;
+  margin-bottom: 0.15rem;
+  background-image: linear-gradient(90deg, var(--copper) 0 22%, var(--hairline) 22% 100%);
+  opacity: 0.65;
+}
+
+.hero__copy {
+  min-width: 0;
+}
+
+.hero__eyebrow {
+  margin: 0 0 clamp(0.55rem, 0.3rem + 0.7vw, 0.95rem);
+  font-size: var(--fs-micro);
+  font-weight: var(--wt-semi);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--copper-ink);
+  line-height: 1.1;
+}
+
+.hero__h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: var(--wonk-display);
+  font-weight: var(--wt-display);
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  /* No ch-based max-width here: the column width alone governs the wrap, so
+     the H1 lands on 3 lines at both breakpoints instead of being squeezed
+     into near-single-word lines. */
+  text-wrap: balance;
+}
+
+.hero__sub {
+  margin: clamp(0.7rem, 0.4rem + 0.8vw, 1.15rem) 0 0;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  color: var(--ink-muted);
+  max-width: 44ch;
+}
+
+/* --- value badges ------------------------------------------------------ */
+
+.hero__badges {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem clamp(0.5rem, 0.2rem + 1vw, 1.1rem);
+  margin: clamp(0.9rem, 0.5rem + 1vw, 1.45rem) 0 0;
+  max-width: 34rem;
+}
+
+.hero__badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 0.4rem 0.55rem 0.4rem 0;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.hero__badge-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: var(--r-sm);
+  background-color: var(--copper-wash);
+  color: var(--copper-ink);
+  transition:
+    background-color var(--t-fast) var(--ease-out),
+    transform var(--t-mid) var(--ease-out);
+}
+
+.hero__badge:hover .hero__badge-icon {
+  background-color: var(--copper-wash-strong);
+  transform: translateY(-1px);
+}
+
+.hero__badge-label {
+  font-size: var(--fs-xs);
+  font-weight: var(--wt-med);
+  line-height: 1.28;
+  color: var(--ink);
+  letter-spacing: -0.002em;
+}
+
+/* --- CTAs -------------------------------------------------------------- */
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: clamp(0.95rem, 0.55rem + 1vw, 1.5rem);
+}
+
+.hero__cta-call {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.hero__cta-alt {
+  flex: 0 1 auto;
+}
+
+.hero__hours {
+  margin: clamp(0.65rem, 0.4rem + 0.6vw, 0.95rem) 0 0;
+  font-size: var(--fs-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* --- widget slot -------------------------------------------------------- */
+
+.hero__widget {
+  min-width: 0;
+}
+
+/* --- desktop split ------------------------------------------------------ */
+
+@media (min-width: 1100px) {
+  .hero {
+    padding-block: clamp(1.5rem, 0.5rem + 1.9vw, 2.75rem) clamp(2.5rem, 1rem + 3.4vw, 4.25rem);
+  }
+
+  .hero__photo {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 46vw;
+    z-index: 0;
+    overflow: hidden;
+    /* Two masks intersected: a soft left edge so the photo melts into the
+       parchment rather than butting against it, and a soft foot so the band
+       doesn't end on a hard horizontal cut above the next section. */
+    -webkit-mask-image: linear-gradient(94deg, var(--mask-off) 0, var(--mask-mid) 9%, var(--mask-on) 26%),
+      linear-gradient(180deg, var(--mask-on) 62%, var(--mask-off) 100%);
+    mask-image: linear-gradient(94deg, var(--mask-off) 0, var(--mask-mid) 9%, var(--mask-on) 26%),
+      linear-gradient(180deg, var(--mask-on) 62%, var(--mask-off) 100%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+
+  .hero__photo-inner {
+    position: absolute;
+    inset: -6% 0 -6%;
+    will-change: transform;
+  }
+
+  .hero__photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 46% 50%;
+    filter: saturate(0.9) contrast(1.06);
+  }
+
+  .hero__inner {
+    grid-template-columns: minmax(0, 1.06fr) minmax(24rem, 0.94fr);
+    /* column-gap, NOT the gap shorthand — the shorthand would reset the tight
+       row-gap above and push the alignment rule away from the eyebrow and the
+       widget's top edge, which is the one thing this row has to prove. */
+    column-gap: clamp(2rem, 0.5rem + 3.2vw, 4rem);
+    align-items: start;
+  }
+
+  .hero__rule {
+    background-image: linear-gradient(90deg, var(--copper) 0 12%, var(--hairline) 12% 54%, var(--hairline-copper) 54% 100%);
+  }
+
+  .hero__badges {
+    max-width: none;
+  }
+
+  .hero__widget {
+    /* Pull the widget slightly left so the paper panel breaks the split line
+       rather than sitting politely inside its own column. The small top offset
+       lands the deckled edge's average on the eyebrow's own line — a torn edge
+       can't align to the pixel, so it aligns to its mean. */
+    margin-left: clamp(-2.5rem, -1.5vw, 0rem);
+    margin-top: 7px;
+  }
+}
+
+@media (min-width: 1560px) {
+  /* Past this width the column is wide enough that the H1 would drop to two
+     very long lines — cap it so the wrap stays at three. */
+  .hero__h1 {
+    max-width: 22ch;
+  }
+}
+
+/* --- compact mobile ------------------------------------------------------ */
+
+@media (max-width: 600px) {
+  .hero {
+    padding-block: 0.85rem 1.9rem;
+  }
+
+  .hero__badge {
+    gap: 0.42rem;
+    padding: 0.3rem 0 0.3rem 0;
+  }
+
+  .hero__badge-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .hero__badge-label {
+    font-size: 0.75rem;
+    line-height: 1.22;
+  }
+
+  .hero__sub {
+    max-width: 38ch;
+  }
+
+  .hero__ctas {
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+  }
+
+  .hero__cta-call {
+    flex: 1 1 60%;
+    padding-inline: 0.7rem;
+  }
+
+  .hero__cta-alt {
+    flex: 1 1 40%;
+    padding-inline: 0.7rem;
+  }
+
+  .hero__hours {
+    display: none;
+  }
+}

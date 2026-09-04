@@ -1,0 +1,170 @@
+/* Coverage — Neighborhood or Landmark Mention Block / Textured Background
+   Address Card, closed by a full-bleed photo band (Image as Section Divider). */
+
+.cov {
+  padding-bottom: 0;
+}
+
+.cov__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.55fr);
+  gap: clamp(1.75rem, 0.5rem + 3.6vw, 4rem);
+  align-items: start;
+}
+
+.cov__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.cov__h2 {
+  max-width: 14ch;
+}
+
+.cov__framing {
+  margin: var(--sp-2) 0 0;
+  max-width: 46ch;
+}
+
+/* --- address card ------------------------------------------------------ */
+
+.cov__card {
+  padding: clamp(1.15rem, 0.7rem + 1.2vw, 1.75rem);
+  background-color: var(--paper);
+  background-image: var(--grain-mul);
+  background-size: var(--grain-size);
+  background-blend-mode: multiply;
+  border: 1px solid var(--hairline-soft);
+  border-left: 3px solid var(--copper);
+  border-radius: var(--r-sm);
+  box-shadow: var(--sh-md);
+}
+
+.cov__card-title {
+  margin-bottom: var(--sp-4);
+}
+
+.cov__address {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  font-style: normal;
+  font-size: var(--fs-xs);
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+
+.cov__address-line {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.6rem;
+  align-items: start;
+}
+
+.cov__address-line svg {
+  margin-top: 0.22rem;
+  color: var(--copper-ink);
+}
+
+.cov__card-cta {
+  width: 100%;
+  margin-top: var(--sp-5);
+}
+
+/* --- town index --------------------------------------------------------- */
+
+.cov__index {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  column-gap: clamp(1rem, 0.4rem + 1.6vw, 2.25rem);
+  row-gap: 0;
+  margin-top: clamp(1.5rem, 0.8rem + 1.8vw, 2.5rem);
+  border-top: 1px solid var(--ink-muted);
+}
+
+.cov__area {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.78rem 0.25rem;
+  border-bottom: 1px solid var(--hairline-soft);
+  transition: padding-left var(--t-mid) var(--ease-out);
+}
+
+.cov__area:hover {
+  padding-left: 0.7rem;
+}
+
+.cov__node {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid var(--copper);
+  background-color: transparent;
+  transition: background-color var(--t-fast) var(--ease-out);
+}
+
+.cov__area:hover .cov__node {
+  background-color: var(--copper);
+}
+
+.cov__area-name {
+  font-size: var(--fs-sm);
+  font-weight: var(--wt-med);
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+/* --- photographic divider ------------------------------------------------ */
+
+.cov__band {
+  position: relative;
+  margin-top: clamp(2.5rem, 1.2rem + 3.4vw, 4.5rem);
+  overflow: hidden;
+}
+
+.cov__band-img {
+  width: 100%;
+  height: clamp(11rem, 6rem + 16vw, 20rem);
+  object-fit: cover;
+  object-position: 50% 62%;
+  filter: saturate(0.78) contrast(1.05);
+}
+
+.cov__band-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, var(--wash-a90) 0%, var(--wash-a0) 15%),
+    linear-gradient(0deg, var(--moss-a30), var(--copper-a10));
+  mix-blend-mode: multiply;
+}
+
+@media (max-width: 880px) {
+  .cov__top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cov__h2 {
+    max-width: 20ch;
+  }
+}
+
+@media (max-width: 520px) {
+  .cov__index {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1rem;
+  }
+
+  .cov__area-name {
+    font-size: var(--fs-xs);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cov__area {
+    transition: none;
+  }
+}
